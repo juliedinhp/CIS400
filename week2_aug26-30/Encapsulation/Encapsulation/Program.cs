@@ -8,13 +8,36 @@ public class Program
 
     public static void Main(string[] args)
     {
+        //from Monday:
+
+        /*
+        //LabRoom r = new() { Windows = false };
+
+        //NO!!! can't change now
+        //r.Windows = true;
+
+        LabRoom r = new(false);
+
         //create PointStruct for (3,4)
 
-        //make another one, set it equal to the first
+        PointStruct point1 = new(3, 4);
+        PointStruct point2 = point1;
 
-        //change a value, print
+        //doesn't work - PointStruct is now immutable
+        //point2.X = 10;
 
-        //what happens if we pass to a method?
+        point1.Print();
+        point2.Print();
+        */
+
+        //Wednesday:
+
+        LabRoom room1 = new(false);
+        LabRoom room2 = new(true);
+
+        //how to change drinks policy?
+
+
 
 
 

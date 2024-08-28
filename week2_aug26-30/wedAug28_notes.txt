@@ -1,0 +1,65 @@
+Milestone 1: due Friday
+
+--> a couple of corrections:
+
+TurkeyCranberrySandwich class: 
+    CranberrySauce defaults to true
+    ProvoloneCheese defaults to false
+
+VeggieSandwich class: 
+    All properties true by default (incl. CreamCheese)
+
+
+
+--> Week 3 module will be published automatically just after midnight
+    Friday morning (one one tutorial, due Tues)
+
+
+--> no class Mon Sep 2
+
+--------------------------------------------
+
+static vs non-static.
+
+    --> when can/should a field/method/property be static?
+
+    --> when is a field/method/property NOT allowed to be static?
+
+    --> when should a class be static?
+
+
+--> look at drinks policy for lab room
+
+
+--> what if we wanted to initialize the policy elsewhere (i.e., constructor)
+
+
+
+
+--> can a static class have a constructor?
+
+--> can a non-static class have a static constructor?
+
+
+
+---------------------------------------------
+
+Encapsulation - what is this?
+
+Want to keep track of scores and majors for students.
+    --> see current organization
+    --> why not great?
+    --> how to improve?
+
+What class to add? What fields/properties? 
+Where should methods go? Could average be a property?
+
+----------------------------
+
+UML - Unified Modeling Language
+
+--> why?
+
+--> what kinds of diagrams?
+
+Draw UML for new Student class.

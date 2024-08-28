@@ -18,9 +18,7 @@ Milestone 1: due Friday (you might notice the design is ugly...)
 
 Properties vs fields.
 
-- more control over visibility
-- more customization
-- derived properties to be calculated from other things
+
 
 --> autoproperty
 
@@ -39,7 +37,7 @@ public int Property
 {
     get
     {
-        return Property; (returns itself, get from a private backing field e.g. private int prop..)
+        return Property;
     }
     set
     {
@@ -117,12 +115,3 @@ Other vocab:
 
 Information hiding
 State
-
-v0.(milestone).(re-release)
-
-
-types
-ref -> heap
-(classes),
-value -> stack
-(in struct), use for storing small amount of data, make immutable by leaving out set in properties
