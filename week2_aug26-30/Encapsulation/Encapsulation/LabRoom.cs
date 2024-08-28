@@ -11,5 +11,8 @@ namespace Encapsulation
         public int Computers = 20;
 
         public bool Windows = true;
+
+        // drinks policy across all lab rooms
+        public static bool DrinksAllowed{get;set;}=true;
     }
 }
