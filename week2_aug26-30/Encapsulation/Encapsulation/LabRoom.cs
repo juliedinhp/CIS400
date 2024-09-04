@@ -30,5 +30,11 @@ namespace Encapsulation
         {
             Windows = isWindows;
         }
+
+        //static constructor (any class can have one)
+        static LabRoom(){
+            //initialize any static fields/properties
+            DrinksAllowed = true;
+        }
     }
 }
