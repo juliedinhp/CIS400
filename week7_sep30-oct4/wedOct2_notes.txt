@@ -1,0 +1,86 @@
+Next week:
+
+- Two tutorials (Mon/Tues)
+- Milestone 6 will be smaller, no UML/testing
+    --> due next *Thursday*
+    --> we will walk through much of it in class Mon/Wed
+    --> idea is to help everyone through milestone to be
+        able to enjoy 3-day weekend
+
+(no class next Friday, October 11)
+
+///////////////////////////
+
+Friday: Milestone 5 due
+
+--> see demo
+
+//////
+
+Types of layouts:
+- StackPanel - in a line, vertically or horizontally
+- DockPanel - dock elements to top/bottom/left/right
+    fills extra space with last added element
+- Grid - rows/columns
+
+--> when to use each?
+
+///////////////////////////
+
+Creating menu control
+    - what kind of layout?
+    - what kind of controls will you have?
+    - do you need to worry about spacing of other components?
+
+
+
+/////
+
+Creating order control
+    - what kind of layout?
+    - what kinds of controls will you have?
+    
+    - should contain a ListView
+
+    <ListView ItemsSource="{Binding}"/>
+
+    What does the "Binding" mean?
+
+
+////
+
+Creating the MainWindow.
+    - how to lay out the menu and the order summary?
+    - how to get the buttons on the bottom?
+
+    Adding a custom control:
+
+    <local:YourControlClass/>
+
+    (can specify properties like Grid.Row, etc. as usual)
+
+
+////
+
+What is DataContext? How does it work? Where do we set it?
+    ObservableCollection<IMenuItem>
+    set in the MainWindow constructor
+
+
+How can we add items to the collection when we click buttons?
+
+assign names to all menu buttons in the XAML
+
+private void ClickEventHandler(object sender, RoutedEventArgs e) {
+    //sender is the button that was ClickEventHandler
+
+    if (sender is Button b) {
+        if (DataContext is ObservableCollection<IMenuItem> order)
+            if (b.Name == "CustomSandwichCtrl") {
+                order.Add(new CustomSandwich());
+            }
+        }
+    }
+
+    
+}
