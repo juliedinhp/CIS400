@@ -1,0 +1,56 @@
+Milestone 7 due Friday
+
+See Monday's notes for a suggested order of approach
+
+////////////////////////////
+
+How to make Order properties change when items are customized?
+
+In Add, attach to item's PropertyChanged:
+
+    item.PropertyChanged += HandleOrderChanges;
+
+
+--> then what to do?
+
+
+
+
+--> what to do in Remove, Clear?
+
+
+
+///////////////////////////////
+
+Entree - custom lists for bread, size options
+
+    Add two private fields:
+        private Dictionary<BreadType, List<SizeType>> _sizesByBreadChoice;
+        private Dictionary<SizeType, List<BreadType>> _breadsBySizeChoice;
+
+        --> populate in Entree constructor
+
+
+
+
+        public IEnumerable<BreadType> BreadOptions
+            --> how to implement?
+
+
+        public IEnumerable<SizeType> SizeOptions
+            --> how to implement?
+
+
+///////
+
+How to use in Point of sale?
+
+
+In Entree customization control, add ComboBox
+    ItemsSource is?
+    SelectedItem is?
+
+
+
+Updating (current) Bread, Size choice in Entree:
+    What to do with PropertyChanged?
