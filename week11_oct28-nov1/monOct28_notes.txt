@@ -16,29 +16,85 @@ Exam 2: Wednesday, November 6
 
 Milestone 9.
 - Update UML to match current state of your application
-- Unit test Order updates from Milestone 6 (Number, PlacedAt, collection/property
-    changed stuff)
-- Unit test PropertyChanged implementation from Milestone 7 and 8
-- Integration testing for ViewModel
 
+- Unit test updates from Milestones 6-8
+
+- Integration testing
+
+
+//////////////////////////////////
 
 UML considerations:
 - denote the namespaces
+    show SubHero.PointOfSale designation around those classes 
+
+
 - fully qualify class (namespace.ClassName) if referring to a class
     from a different namespace
+
 - indicate that MainWindow extends Window 
+
 - indicate that EVERY user control extends UserControl 
+
 - include all named controls, public properties/methods/events, and
     event handlers (even if private) in UML
+
 - indicate the DataContext of EVERY control (unless it is inheriting
     from a parent control)
-- indicate whenever a control is placed on another control
 
+        MainWindow: Order
+        Payment view: PaymentViewModel (move to Data library)
+        all customization controls: the corresponding meu item
+
+
+- indicate whenever a control is placed on another control
+    MainWindow has order summary, menu, all customization controls, payment control
+    all customization controls have that helper control
+
+
+///
 
 --> recommendation: have sections on your UML:
     - one for inheriting Window/UserControl
     - one to show the DataContexts
     - one to show the composition of controls on other controls
+
+
+
+--> custom event args?
+    extends RoutedEventArgs
+    property: IMenuItem  (show that relationship)
+    use directed association 
+        point from a class to the class being used
+
+        (menu selection control) --> custom event args
+        etc for any control that uses custom event args 
+
+
+--> PaymentViewModel? 
+    DataContext for the payment control
+
+
+--> UML changes in Data project?
+    Order: INotifyCollectionChanged, INotifyPropertyChanged
+        include the PropertyChanged event and the CollectionChanged event
+
+        new properties: PlacedAt, Number
+
+        (any extra public methods/properties)
+
+    IMenuItem implements INotifyPropertyChanged
+
+    Combo, Entree, Side, Drink have PropertyChanged event
+
+    Combo: entree types, side types, drink types
+    Entree: size / bread choice properties (new in ms7)
+
+
+    PaymentViewModel implements INotifyPropertyChanged
+
+    IngredientItem implements INotifyPropertyChanged
+
 
 
 //////////////////////////////////
@@ -47,11 +103,18 @@ Unit tests.
 
 Order:
 --> test that Order implements INotifyPropertyChanged and INotifyCollectionChanged
+        use Assert.IsAssignableFrom
+
 --> test that Number property updates for subsequent orders
     (careful how you set this up)
 --> test that Number/PlacedAt don't change when you request them more than once
 --> test that PropertyChanged is correctly invoked when actions happen that cause
     property values to change
+
+    add/remove/clear: invoke PropertyChanged for Subtotal, Tax, Total
+    TaxRate: Tax, Total, TaxRate
+
+
 
 
 Menu items:
@@ -62,16 +125,30 @@ Menu items:
     --> test ALL combinations of (changingProperty, affectedProperty)
         to ensure PropertyChanged is invoked
 
+        chips: flavor (should invoke for calories, PreparationInformation, flavor)
+
+
+
 --> for EACH entree type: try changing its ingredients to be
     included/not included. Assert that such changes invoke
-    PropertyChanged for that entree (which properties change?)
-        Price, Calories, PreparationInformation
+    PropertyChanged for that entrees
+
+        Which properties change?
+            Calories, PreparationInformation, Price
+
+
+
 
 --> for Combo: try changing entree/side/drink choice, assert that
-    PropertyChanged is correctly invoked
+    PropertyChanged is correctly invoked for:
+        EntreeChoice (or side or drink), EntreeTypes (or side or drink),
+            Calories, Price, PreparationInformation
+
+
 
     (it is OK if you do this with specific entrees/sides/drinks)
     (you don't need to check anything with further customizations)
+
 
 
 
@@ -84,16 +161,32 @@ Example: FountainDrink
 
 - implements INotifyPropertyChanged
 - what properties can change? 
+
+    Ice, Size, Flavor
     
 
     --> What properties are affected as a result of that change?
 
+    Ice: PreparationInformation, Ice
+    Size: Price, Calories, PreparationInformation, Size
+    Flavor: PreparationInformation, Calories, Flavor
 
 
-
-    public void Test(values for property, affectedProperty) {
-        create a new menu item
+    [Theory]
+    [InlineData(SodaType.Coke, "PreparationInformation")]
+    [InlineData(SodaType.CokeZero, "Calories")]
+    [InlineData(SodaType.OrangeFanta, "Flavor")]
+    [InlineData(SodaType.CokeZero, "PreparationInformation")]
+    [InlineData(SodaType.MountainDew, "Calories")]
+    [InlineData(SodaType.DrPepper, "Flavor")]
+    [InlineData(SodaType.OrangeFanta, "Calories")]
+    [InlineData(SodaType.MountainDew, "Flavor")]
+    public void CheckFlavorChangeProperties(SodaType flavor, string affectedProperty) {
+        FountainDrink drink = new();
         Assert.PropertyChanged(item, affectedProperty, () => {
-            item.changingProperty = value from paramater;
+            drink.Flavor = flavor;
         });
     }
+
+
+    repeat in a different test for Size, Ice
